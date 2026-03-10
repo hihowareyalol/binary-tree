@@ -30,7 +30,7 @@ void TreeT<T>::Add(T value)
             parent = currN;
             currN = currN->left;
         }
-        else if (value > currN)
+        else if (value > currN->value)
         {
             parent = currN;
             currN = currN->right;
@@ -42,7 +42,11 @@ void TreeT<T>::Add(T value)
     }
     Node* newNode = new Node;
     newNode->value = value;
-    if (value > parent->value)
+    if (parent == nullptr)
+    {
+        root = newNode;
+    }
+    else if (value > parent->value)
     {
         parent->right = newNode;
     }
@@ -61,6 +65,23 @@ void TreeT<T>::Remove(T value)
 template <class T>
 bool TreeT<T>::Contains(T value)
 {
+    Node* currN = root;
+
+    while (currN != nullptr) {
+        if (value < currN->value)
+        {
+            currN = currN->left;
+        }
+        else if (value > currN->value)
+        {
+            currN = currN->right;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 template <class T>
@@ -72,9 +93,11 @@ int TreeT<T>::Size()
 template <class T>
 void TreeT<T>::ResetIterator(Order traverseOrder)
 {
+
 }
 
 template <class T>
 T TreeT<T>::GetNextItem()
 {
+
 }
