@@ -5,14 +5,42 @@
 #include <iostream>
 #include "TreeT.h"
 
-int main(void) {
-
+int main(void)
+{
     TreeT<int> treeA;
-    ///
 
-    TreeT<int> treeB;
+    treeA.Add(5);
+    treeA.Add(1);
+    treeA.Add(10);
+    treeA.Add(2);
 
-    treeB = treeA;
+    if (treeA.Contains(5))
+    {
+        std::cout << "Contains 5" << std::endl;
+    }
+    if (treeA.Contains(1))
+    {
+        std::cout << "Contains 1" << std::endl;
+    }
+    if (treeA.Contains(10))
+    {
+        std::cout << "Contains 10" << std::endl;
+    }
+    if (treeA.Contains(2))
+    {
+        std::cout << "Contains 2" << std::endl;
+    }
+    if (treeA.Contains(-12))
+    {
+        std::cout << "Contains -12" << std::endl;
+    } else
+    {
+        std::cout << "Doesn't contain -12" << std::endl;
+    }
+
+    //TreeT<int> treeB;
+
+    //treeB = treeA;
 
     TreeT<int>* tree = new TreeT<int>;
 

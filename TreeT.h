@@ -58,7 +58,6 @@ private:
     void PlaceInOrder(Node* node);
 };
 
-
 #include "TreeT.cpp"
 
 #endif //TREET_H
