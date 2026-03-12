@@ -191,4 +191,5 @@ void TreeT<T>::PlacePostOrder(Node* node)
 template <class T>
 void TreeT<T>::PlaceInOrder(Node* node)
 {
+
 }
