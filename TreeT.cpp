@@ -10,11 +10,22 @@ TreeT<T>::TreeT()
 template <class T>
 TreeT<T>::~TreeT()
 {
+    DestroyTree(root);
 }
 
 template <class T>
 TreeT<T>& TreeT<T>::operator=(const TreeT& otherTree)
 {
+    if (root == otherTree.root) //check if it's the same tree
+    {
+        return this;
+    }
+
+    DestroyTree(root);
+    CopyHelper([&]root, otherTree.root);
+
+    numNodes = otherTree.numNodes;
+    return this;
 }
 
 template <class T>
@@ -94,11 +105,90 @@ int TreeT<T>::Size()
 template <class T>
 void TreeT<T>::ResetIterator(Order traverseOrder)
 {
-
+    //clear out the queue
+    while (!iterArr.empty())
+    {
+        iterArr.pop();
+    }
+    if (traverseOrder == IN_ORDER)
+    {
+        PlaceInOrder(root);
+    }
+    else if (traverseOrder == PRE_ORDER)
+    {
+        PlacePreOrder(root);
+    }
+    else
+    {
+        PlacePostOrder(root);
+    }
 }
 
 template <class T>
 T TreeT<T>::GetNextItem()
 {
+    T nextItem = iterArr.front();
 
+    iterArr.pop();
+    return nextItem;
+}
+
+template <class T>
+void TreeT<T>::DestroyTree(Node* node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    DestroyTree(node->left);
+    DestroyTree(node->right);
+    delete node;
+}
+
+template <class T>
+void TreeT<T>::CopyHelper(Node*& thisTree, Node* otherTree)
+{
+    if (otherTree == nullptr)
+    {
+        thisTree = nullptr;
+        return;
+    }
+
+    thisTree = new Node;
+    thisTree->value = otherTree->value;
+    CopyHelper(thisTree->left, otherTree->left);
+    CopyHelper(thisTree->right, otherTree->right);
+}
+
+template <class T>
+void TreeT<T>::PlacePreOrder(Node* node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    iterArr.push(node->value);
+    PlacePreOrder(node->left);
+    PlacePreOrder(node->right);
+
+}
+
+template <class T>
+void TreeT<T>::PlacePostOrder(Node* node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    iterArr.push(node->value);
+    PlacePostOrder(node->left);
+    PlacePostOrder(node->right);
+}
+
+template <class T>
+void TreeT<T>::PlaceInOrder(Node* node)
+{
 }
